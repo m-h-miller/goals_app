@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GoalsApp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<header>
+  <% if signed_in? %>
+    <p><%= current_user.username %></p>
+  <% end %>
+
+  <% if flash[:errors] %>
+    <p> <%= flash[:errors] %> </p>
+  <% end %>
+
+<%= yield %>
+
+</body>
+</html>
