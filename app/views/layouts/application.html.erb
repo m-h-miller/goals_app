@@ -8,9 +8,17 @@
 </head>
 <body>
 
-<header>
   <% if signed_in? %>
     <p><%= current_user.username %></p>
+
+    <form action="<%= session_url %>" method="POST" >
+      <%= authenticity_token %>
+      <%= delete_action %>
+      <label>
+        Sign Out
+        <input type="submit" value="Sign Out" >
+      </label>
+    </form>
   <% end %>
 
   <% if flash[:errors] %>

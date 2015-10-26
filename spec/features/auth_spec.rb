@@ -64,9 +64,21 @@ feature "logging in" do
 end
 
 feature "logging out" do
+  before :each do
+    visit new_user_url
+    sign_up('BobbyTables', 'BobbyTables')
+    click_button("Sign Out")
+    visit new_session_url
+  end
 
-  it "begins with logged out state"
+  it "begins with logged out state" do
+    expect(page).to have_content("Sign In")
+  end
 
-  it "doesn't show username on the homepage after logout"
 
+  it "doesn't show username on the homepage after logout" do
+    sign_in('BobbyTables', 'BobbyTables')
+    click_button('Sign Out')
+    expect(page).not_to have_content('BobbyTables')
+  end
 end

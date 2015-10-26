@@ -85,7 +85,7 @@ RSpec.configure do |config|
 end
 
 def sign_up(username, password)
-  fill_in('Username', :with => username)
+  fill_in('Username', with: username)
   fill_in('Password', with: password)
   click_button('Sign Up')
 end
@@ -94,4 +94,11 @@ def sign_in(username, password)
   fill_in("Username", with: username)
   fill_in("Password", with: password)
   click_button("Sign In")
+end
+
+def create_goal(title, description, privacy)
+  fill_in("Title", with: title)
+  fill_in("Description", with: description)
+  choose(privacy)
+  click_button("Submit New Goal")
 end

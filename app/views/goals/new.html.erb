@@ -1,0 +1,27 @@
+<h1>Submit New Goal</h1>
+
+<form action="<%= goals_url %>" method="POST" >
+  <%= authenticity_token %>
+
+  <label>
+    Title
+    <input type="text" name="goal[title]" >
+  </label>
+
+  <label>
+    Description
+    <input type="textarea" name="goal[description]" >
+  </label>
+
+
+  <p>Private?</p>
+  <input type="radio" name="goal[private]" id="private" value="true">
+  <label for="private">Private</label>
+
+  <input type="radio" name="goal[private]" id="public" value="false">
+  <label for="public">Public</label>
+  <br>
+
+  <input type="submit" value="Submit New Goal">
+
+</form>

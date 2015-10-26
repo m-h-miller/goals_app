@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :ensure_signed_in, only: [:new, :create]
+
   def new
 
   end
@@ -11,14 +13,14 @@ class SessionsController < ApplicationController
 
     if @user
       sign_in!(@user)
-      redirect_to user_url(@user)
     else
       flash.now[:errors] = "Invalid Credentials"
-      render :new, status: :bad_request
+      render :new
     end
   end
 
   def destroy
-
+    sign_out!
   end
+
 end
