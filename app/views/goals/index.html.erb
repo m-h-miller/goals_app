@@ -1,0 +1,15 @@
+<h1>Goals</h1>
+
+<ul>
+<% @goals.each do |goal| %>
+
+  <% if goal.private = false || current_user.id == goal.user_id %>
+    <li>
+      <a href="<%= goal_url(goal) %>"  >
+        <%= h(goal.title) %>
+      </a>
+    </li>
+  <% end %>
+
+<% end %>
+</ul>

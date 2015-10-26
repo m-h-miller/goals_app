@@ -1,0 +1,9 @@
+<h1><%= @goal.title %> </h1>
+
+<p><%= @goal.description %> </p>
+
+<p>This goal belongs to <%= @goal.user %> </p>
+
+<% if current_user == @goal.user %>
+  <a href="<%= edit_goal_url(@goal) %>" > Edit Goal </a>
+<% end %>

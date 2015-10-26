@@ -1,0 +1,41 @@
+<h1>Edit Goal</h1>
+
+<form action="<%= goal_url(@goal) %>" method="POST">
+  <%= authenticity_token %>
+  <input
+    type="hidden"
+    name="_method"
+    value="PATCH">
+
+  <label>
+    Title
+    <input type="text" name="goal[title]" value="<%= @goal.title %>">
+  </label>
+
+  <label>
+    Description
+    <input type="textarea" name="goal[description]" value="<%= @goal.description %>">
+  </label>
+
+
+  <p>Private?</p>
+  <input
+    type="radio"
+    name="goal[private]"
+    id="private"
+    value="true"
+    <%= "selected" if @goal.private == true %>>
+  <label for="private">Private</label>
+
+  <input
+    type="radio"
+    name="goal[private]"
+    id="public"
+    value="false"
+    <%= "selected" if @goal.private == false %>>
+  <label for="public">Public</label>
+  <br>
+
+  <input type="submit" value="Edit Goal">
+
+</form>

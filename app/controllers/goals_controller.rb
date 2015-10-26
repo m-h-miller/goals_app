@@ -24,13 +24,28 @@ class GoalsController < ApplicationController
 
   def show
     @goal = Goal.find(params[:id])
-    render :show
+    if current_user != @goal.user
+      flash[:errors] = "Permission denied"
+      redirect_to goals_url
+    else
+      render :show
+    end
   end
 
   def edit
+    @goal = Goal.find(params[:id])
+    render :edit
   end
 
   def update
+    @goal = Goal.find(params[:id])
+
+    if @goal.update!(goal_params)
+      redirect_to goal_url(@goal)
+    else
+      flash.now[:errors] = @goal.errors.full_messages
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
