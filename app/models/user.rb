@@ -8,6 +8,21 @@ class User < ActiveRecord::Base
   attr_reader :password
 
   has_many :goals
+  
+  has_many :goal_comments,
+    class_name: "GoalComment",
+    foreign_key: :commenter_id,
+    primary_key: :id
+
+  has_many :user_comments,
+    class_name: "UserComment",
+    foreign_key: :commenter_id,
+    primary_key: :id
+
+  has_many :comments,
+    class_name: "UserComment",
+    foreign_key: :user_id,
+    primary_key: :id
 
   def self.find_by_credentials(username, password)
     @user = User.find_by_username(username)

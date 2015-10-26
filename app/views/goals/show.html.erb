@@ -2,8 +2,44 @@
 
 <p><%= @goal.description %> </p>
 
-<p>This goal belongs to <%= @goal.user %> </p>
+<p>This goal belongs to <%= @goal.user.username %> </p>
 
 <% if current_user == @goal.user %>
   <a href="<%= edit_goal_url(@goal) %>" > Edit Goal </a>
+
+  <% if @goal.status == "PENDING" %>
+    <form action="<%= goal_url(@goal) %>" method="POST" >
+      <input type="hidden" name="_method" value="PATCH" >
+      <%= authenticity_token %>
+
+      <input type="hidden" name="goal[status]" value="COMPLETED" >
+
+      <input type="submit" value="Mark as completed" >
+    </form>
+  <% else %>
+    <p>Goal COMPLETED!</p>
+  <% end %>
 <% end %>
+
+<label>
+  Comments
+  <ul>
+  <% @goal.comments.each do |comment| %>
+    <li>
+      <%= comment.commenter.username %>: <%= comment.body %>
+    </li>
+  <% end %>
+  </ul>
+</label>
+
+<form action="<%= goal_comments_url %>" method="POST" >
+  <%= authenticity_token %>
+  <label for="Comment">
+    Comment
+  <input type="textarea" name="goal_comment[body]" >
+  </label>
+  <input type="hidden" name="goal_comment[goal_id]" value="<%= @goal.id %>" >
+
+  <input type="submit" value="Submit comment" >
+
+</form>

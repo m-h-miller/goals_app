@@ -78,4 +78,29 @@ feature 'edit' do
     click_button "Edit Goal"
     expect(page).to have_content("new title")
   end
+
+  it 'can mark a goal as completed' do
+    click_button("Mark as completed")
+    expect(page).to have_content("COMPLETED")
+  end
+end
+
+feature 'comments' do
+  before :each do
+    visit new_user_url
+    sign_up('BobbyTables', 'BobbyTables')
+    bobby = User.first
+    visit new_goal_url(bobby.id)
+    create_goal('Goal1', 'Get in shape', 'Public')
+    click_button("Sign Out")
+    visit new_user_url
+    sign_up("HarryStyles", "password")
+    visit goal_url(Goal.first)
+  end
+
+  it 'allows a user to leave a comment on a goal' do
+    fill_in("Comment", with: "Good luck!")
+    click_button("Submit comment")
+    expect(page).to have_content("Good luck!")
+  end
 end

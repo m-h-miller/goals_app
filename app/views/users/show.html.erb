@@ -1,1 +1,23 @@
 <h1><%= @user.username %></h1>
+
+<label>
+  Comments
+  <ul>
+  <% @user.comments.each do |comment| %>
+    <li>
+      <%= comment.commenter.username %>: <%= comment.body %>
+    </li>
+  <% end %>
+  </ul>
+</label>
+
+<form action="<%= user_comments_url %>" method="POST" >
+  <%= authenticity_token %>
+  <label for="Comment">
+    Comment
+  <input type="textarea" name="user_comment[body]" >
+  </label>
+  <input type="hidden" name="user_comment[user_id]" value="<%= @user.id %>" >
+  <input type="submit" value="Submit comment" >
+
+</form>

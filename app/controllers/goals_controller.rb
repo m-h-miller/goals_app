@@ -24,7 +24,7 @@ class GoalsController < ApplicationController
 
   def show
     @goal = Goal.find(params[:id])
-    if current_user != @goal.user
+    if current_user != @goal.user && @goal.private == true
       flash[:errors] = "Permission denied"
       redirect_to goals_url
     else
